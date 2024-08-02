@@ -1,0 +1,16 @@
+{
+    "cost": 0,
+    "runtime": 0,
+    "temperature": 26.4140625,
+    "target": 0,
+    "state": "IDLE",
+    "heat": 0,
+    "heat_rate": 0,
+    "totaltime": 0,
+    "kwh_rate": 1.582,
+    "currency_type": "$",
+    "profile": null,
+    "pidstats": {},
+    "catching_up": false,
+    "scheduled_start": "2024-07-30 at 16:00"
+}
