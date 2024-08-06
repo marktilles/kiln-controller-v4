@@ -50,13 +50,13 @@ function getNowTime() {
 
 //    var year = date.getFullYear();
 
-//    var month = date.getMonth() + 1;
-//    month = (month < 10 ? "0" : "") + month;
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
 
-//    var day  = date.getDate();
-//    day = (day < 10 ? "0" : "") + day;
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
 
-    return hour + ":" + min + ":" + sec;
+    return month + "-" + day + " " + hour + ":" + min + ":" + sec;
 
 }
 
@@ -83,7 +83,7 @@ function BACKEND_FUNCTION_1() {
    	    {
    	       "cmd": "BACKEND_FUNCTION_1",
   	    }
-            $.bootstrapGrowl("<span class=\"glyphicon glyphicon-exclamation-sign\"></span> <b>Performing immediate shutdown and power-off!<br><br>To reboot, remove power supply for 15 seconds. NOTE! Any curently running firing will restart if within the automatic_restart_window time setting!</b>", {
+            $.bootstrapGrowl("<span class=\"glyphicon glyphicon-exclamation-sign\"></span> <b>Performing immediate shutdown and power-off!<br><br>To reboot, remove power supply for 15 seconds. NOTE! Any currently running firing will restart if within the automatic_restart_window time setting!</b>", {
                         ele: 'body', // which element to append to
                         type: 'error', // (null, 'info', 'error', 'success')
                         offset: {from: 'top', amount: 700}, // 'top', or 'bottom'
@@ -110,7 +110,7 @@ function BACKEND_FUNCTION_2() {
               {
    	         "cmd": "BACKEND_FUNCTION_2",
   	      }
-   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-time\"></span> <b>Restarting services, please wait 10 seconds before refreshing browser.</b>", {
+   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-time\"></span> <b>Provide backend function 2 instuctions here. The actual system command to me executed is defined in kiln-controller.py</b>", {
                 ele: 'body', // which element to append to
                 type: 'info', // (null, 'info', 'error', 'success')
                 offset: {from: 'top', amount: 700}, // 'top', or 'bottom'
@@ -121,17 +121,6 @@ function BACKEND_FUNCTION_2() {
                 stackup_spacing: 10 // spacing between consecutively stacked growls.
               });
 
-              $.bootstrapGrowl("<span class=\"glyphicon glyphicon-list\"></span> <b>Now, once the blue \"Restarting services\" text above disappears, verify<br>(1) The switches on the controller box are set to correct oven;<br>(2) Correct oven power cable is connected to the power brick;<br>(3) Press the \"<span class=\"glyphicon glyphicon-repeat\"></span>\" refresh symbol on the web browser (above).</b>", {
-                ele: 'body', // which element to append to
-                type: 'error', // (null, 'info', 'error', 'success')
-                offset: {from: 'top', amount: 700}, // 'top', or 'bottom'
-                align: 'center', // ('left', 'right', or 'center')
-                width: 550, // (integer, or 'auto')
-                delay: 0,
-                allow_dismiss: false,
-                stackup_spacing: 10 // spacing between consecutively stacked growls.
-
-              });
   	      ws_control.send(JSON.stringify(cmd));
            }
            else

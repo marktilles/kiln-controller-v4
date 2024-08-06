@@ -211,24 +211,17 @@ def handle_control():
                     log.info("Stop command received")
                     oven.abort_run()
                 #time.sleep(1)
+
+                # CUSTOM MENU-ACCESSED FUNCTONS
                 elif msgdict.get("cmd") == "BACKEND_FUNCTION_1":
                     log.info("BACKEND_FUNCTION_1 command received")
                     #sample function, these backend scripts are simple password protected - see config.py
-                    #os.system ("/home/pi/mark_scripts/shutdownkiln &"); # shutdown and power off
                     os.system ("sudo shutdown -P +0 &"); # shutdown and power off
-                # SPECIFIC TO MY NEED TO SWAP GUI BETWEEN TWO SEPARATE INSTANCES OF KILN-CONTROLLER FOR CONTROLLING TWO DIFFERENT OVENS
                 elif msgdict.get("cmd") == "BACKEND_FUNCTION_2":
                     log.info("BACKEND_FUNCTION_2 command received")
                     #these backend scripts are simple password protected, password and kiln names are in the config file config.py
-                    if config.kiln_name == "Chematex":
-                       log.info("Switching to Rhode kiln")
-                       oven.abort_run()
-                       os.system ("/home/pi/mark_scripts/rhode &")
-                    else:
-                       log.info("Switching to Chematex kiln")
-                       oven.abort_run()
-                       os.system ("/home/pi/mark_scripts/chematex &")
-                # END SWAP GUI BETWEEN TWO SEPARATE INSTANCES OF KILN-CONTROLLER
+                    os.system ("echo BACKEND_FUNCTION-2 function command was executed")
+                # END CUSTOM MENU-ACCESSED FUNCTONS
         except WebSocketError as e:
             log.error(e)
             break

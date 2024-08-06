@@ -11,6 +11,7 @@ import busio
 kiln_name = "Chematex"
 
 # Password required to avoid accidental firing cancellations or curve modifications 
+# The password is also required to execute optional BACKEND-FUNCTIONs 1 and 2
 function_passcode = "unni"
 
 # Enable a blinking LED while service is running.
