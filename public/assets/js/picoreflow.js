@@ -28,6 +28,40 @@ var ws_storage = new WebSocket(host+"/storage");
 
 var emergency_shutoff_temp;
 
+
+
+//Need to put into oven.py so updates automatically
+// MARK TILLES
+NowTime = getNowTime();
+
+$("#NowTime").html(NowTime); // Define variable for web instance
+function getNowTime() {
+
+    var date = new Date();
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+
+//    var year = date.getFullYear();
+
+//    var month = date.getMonth() + 1;
+//    month = (month < 10 ? "0" : "") + month;
+
+//    var day  = date.getDate();
+//    day = (day < 10 ? "0" : "") + day;
+
+    return hour + ":" + min + ":" + sec;
+
+}
+
+
+
 // Added simple passcode check routine
 function checkPasscode () {
         // Check hard-coded passcode
@@ -746,6 +780,7 @@ $(document).ready(function()
 
                 if(state=="RUNNING")
                 {
+                    //need to put into oven.py so live datetime $("#NowTime").html(NowTime); // Define variable for web instance
                     $("#show_BACKEND_FUNCTION_2").hide();
                     // DONT ALLOW CHANGES UNDER ACTIVE FIRING
                     $("#btn_delProfile").hide();
@@ -861,6 +896,8 @@ $(document).ready(function()
                 //if (heat_rate < -9999) { heat_rate = -9999; }
                 if (heat_rate < -9999) { heat_rate = "-cool"; }
                 $('#heat_rate').html(heat_rate);
+                NowTime = getNowTime();
+                $('#NowTime').html(NowTime);
                 if (typeof x.pidstats !== 'undefined') {
                     $('#heat').html('<div class="bar" style="height:'+x.pidstats.out*70+'%;"></div>')
                     }
