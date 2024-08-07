@@ -8,7 +8,7 @@ import busio
 #   General options
 
 # Give the kiln a name for the GUI
-kiln_name = "Chematex"
+kiln_name = "Porter Ranch"
 
 # Password required to avoid accidental firing cancellations or curve modifications 
 # The password is also required to execute optional BACKEND-FUNCTIONs 1 and 2
@@ -306,5 +306,5 @@ kiln_profiles_directory = os.path.abspath(os.path.join(os.path.dirname( __file__
 # of the elements are used max.
 # To prevent throttling, set throttle_percent to 100.
 throttle_below_temp = 300
-#throttle_percent = 20
-throttle_percent = 100
+throttle_percent = 60
+#throttle_percent = 100

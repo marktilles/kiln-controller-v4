@@ -1,37 +1,9 @@
-#!/usr/bin/expect
-        spawn scp pi@192.168.4.163:/home/pi/kiln-controller/kiln-controller.py kiln4/
-        set pass "markt"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-        spawn scp pi@192.168.4.163:/home/pi/kiln-controller/public/index.html kiln4/public/
-        set pass "markt"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-        spawn scp pi@192.168.4.163:/home/pi/kiln-controller/public/assets/js/picoreflow.js kiln4/public/assets/js/
-        set pass "markt"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-        spawn scp pi@192.168.4.163:/home/pi/kiln-controller/config.py kiln4/
-        set pass "markt"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-        spawn scp pi@192.168.4.163:/home/pi/kiln-controller/lib/oven.py kiln4/lib/
-        set pass "markt"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-        spawn scp synckiln4 pi@192.168.4.163:/home/pi/mark_scripts/
-        set pass "markt"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-
-
-
-
+#!/bin/sh
+        scp pi@192.168.4.163:/home/pi/kiln-controller/kiln-controller.py 		../
+        scp pi@192.168.4.163:/home/pi/kiln-controller/public/index.html 		../public/
+        scp pi@192.168.4.163:/home/pi/kiln-controller/public/assets/js/picoreflow.js 	../public/assets/js/
+        scp pi@192.168.4.163:/home/pi/kiln-controller/config.py 			../
+        scp pi@192.168.4.163:/home/pi/kiln-controller/lib/oven.py			../lib/
+        scp synckiln4 									pi@192.168.4.163:/home/pi/kiln-controller/mark-scripts/
 
 
