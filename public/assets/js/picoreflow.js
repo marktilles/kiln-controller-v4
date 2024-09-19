@@ -881,9 +881,9 @@ $(document).ready(function()
 
                 heat_rate = parseInt(x.heat_rate)
 		//if (heat_rate > 9999) { heat_rate = 9999; }
-                if (heat_rate > 9999) { heat_rate = "+heat"; }
+                if (heat_rate > 9999) { heat_rate = "n/a"; }
                 //if (heat_rate < -9999) { heat_rate = -9999; }
-                if (heat_rate < -9999) { heat_rate = "-cool"; }
+                if (heat_rate < -9999) { heat_rate = "n/a"; }
                 $('#heat_rate').html(heat_rate);
                 NowTime = getNowTime();
                 $('#NowTime').html(NowTime);
