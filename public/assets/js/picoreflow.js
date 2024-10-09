@@ -110,7 +110,8 @@ function BACKEND_FUNCTION_2() {
               {
    	         "cmd": "BACKEND_FUNCTION_2",
   	      }
-   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-time\"></span> <b>Provide backend function 2 instuctions here. The actual system command to me executed is defined in kiln-controller.py</b>", {
+//   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-time\"></span> <b>Provide backend function 2 instuctions here. The actual system command to me executed is defined in kiln-controller.py</b>", {
+   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-time\"></span> <b>Rebooting now!</b>", {
                 ele: 'body', // which element to append to
                 type: 'info', // (null, 'info', 'error', 'success')
                 offset: {from: 'top', amount: 700}, // 'top', or 'bottom'
@@ -721,6 +722,15 @@ $(document).ready(function()
 
             if(state!="EDIT")
             {
+                // Display the other temp scale for information purposes 
+                if (temp_scale == "c") {
+                   $("#altscaletemp").html((x.temperature*9/5+32).toFixed(0)); // Define variable for web instance
+                   $("#altscaleunit").html("f"); // Define variable for web instance
+		} else {
+                   $("#altscaletemp").html(((x.temperature-32)*5/9).toFixed(0)); // Define variable for web instance
+                   $("#altscaleunit").html("c"); // Define variable for web instance
+		}
+
                 state = x.state;
                 if (state!=state_last)
                 {
@@ -770,7 +780,7 @@ $(document).ready(function()
                 if(state=="RUNNING")
                 {
                     //need to put into oven.py so live datetime $("#NowTime").html(NowTime); // Define variable for web instance
-                    $("#show_BACKEND_FUNCTION_2").hide();
+                    //$("#show_BACKEND_FUNCTION_2").hide();
                     // DONT ALLOW CHANGES UNDER ACTIVE FIRING
                     $("#btn_delProfile").hide();
                     $("#btn_newPoint").hide();
@@ -826,7 +836,7 @@ $(document).ready(function()
 
                 }
                 else if (state === "SCHEDULED") {
-                    $("#show_BACKEND_FUNCTION_2").hide();
+                    //$("#show_BACKEND_FUNCTION_2").hide();
                     // DONT ALLOW CHANGES UNDER ACTIVE FIRING
                     $("#btn_delProfile").hide();
                     $("#btn_newPoint").hide();
@@ -953,7 +963,6 @@ $(document).ready(function()
             }
             // ADDED TO BE ABLE TO PORT IN MORE INFORMATION TO GUI
             if (temp_scale == "c") {temp_scale_display = "C";} else {temp_scale_display = "F";}
-
 
             $('#act_temp_scale').html('º'+temp_scale_display);
             $('#target_temp_scale').html('º'+temp_scale_display);

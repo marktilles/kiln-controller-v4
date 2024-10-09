@@ -220,7 +220,8 @@ def handle_control():
                 elif msgdict.get("cmd") == "BACKEND_FUNCTION_2":
                     log.info("BACKEND_FUNCTION_2 command received")
                     #these backend scripts are simple password protected, password and kiln names are in the config file config.py
-                    os.system ("echo BACKEND_FUNCTION-2 function command was executed")
+                    #os.system ("echo BACKEND_FUNCTION-2 function command was executed")
+                    os.system ("sudo reboot")
                 # END CUSTOM MENU-ACCESSED FUNCTONS
         except WebSocketError as e:
             log.error(e)
