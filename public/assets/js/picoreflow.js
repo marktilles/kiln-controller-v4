@@ -111,14 +111,14 @@ function BACKEND_FUNCTION_2() {
    	         "cmd": "BACKEND_FUNCTION_2",
   	      }
 //   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-time\"></span> <b>Provide backend function 2 instuctions here. The actual system command to me executed is defined in kiln-controller.py</b>", {
-   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-time\"></span> <b>Rebooting now!</b>", {
+   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-exclamation-sign\"></span> <b>Rebooting now!</b>", {
                 ele: 'body', // which element to append to
-                type: 'info', // (null, 'info', 'error', 'success')
+                type: 'error', // (null, 'info', 'error', 'success')
                 offset: {from: 'top', amount: 700}, // 'top', or 'bottom'
                 align: 'center', // ('left', 'right', or 'center')
-                width: 550, // (integer, or 'auto')
-                delay: 10000,
-                allow_dismiss: true,
+                width: 385, // (integer, or 'auto')
+                delay: 0,
+                allow_dismiss: false,
                 stackup_spacing: 10 // spacing between consecutively stacked growls.
               });
 
