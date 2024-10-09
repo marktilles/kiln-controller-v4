@@ -881,9 +881,9 @@ $(document).ready(function()
 
                 heat_rate = parseInt(x.heat_rate)
 		//if (heat_rate > 9999) { heat_rate = 9999; }
-                if (heat_rate > 9999) { heat_rate = "n/a"; }
+                if (heat_rate > 9999) { heat_rate = "+heat"; }
                 //if (heat_rate < -9999) { heat_rate = -9999; }
-                if (heat_rate < -9999) { heat_rate = "n/a"; }
+                if (heat_rate < -9999) { heat_rate = "-cool"; }
                 $('#heat_rate').html(heat_rate);
                 NowTime = getNowTime();
                 $('#NowTime').html(NowTime);
@@ -923,7 +923,6 @@ $(document).ready(function()
             pid_kp = x.pid_kp;
             pid_ki = x.pid_ki;
             pid_kd = x.pid_kd;
-            thermocouple_type = x.thermocouple_type;
             function_passcode = x.function_passcode;
             kiln_name = x.kiln_name;
             emergency_shutoff_temp = x.emergency_shutoff_temp; // make variable emergency_shutoff_tempavailable here
@@ -939,37 +938,7 @@ $(document).ready(function()
             //$('#capacity').html(10*1000);
             //////
             $("#kiln_name").html(kiln_name); // Define variable for web instance
-            switch(thermocouple_type) {
-             case 0:  // if (x === 'value1')
-              thermocouple_type = "B";
-	       break;
-             case 1:  // if (x === 'value1')
-              thermocouple_type = "E";
-	       break;
-             case 2:  // if (x === 'value1')
-              thermocouple_type = "J";
-	       break;
-             case 3:  // if (x === 'value1')
-              thermocouple_type = "K";
-	       break;
-             case 4:  // if (x === 'value1')
-              thermocouple_type = "N";
-	       break;
-             case 5:  // if (x === 'value1')
-              thermocouple_type = "R";
-	       break;
-             case 6:  // if (x === 'value1')
-              thermocouple_type = "S";
-	       break;
-             case 7:  // if (x === 'value1')
-              thermocouple_type = "T";
-	       break;
-             default:
-	             thermocouple_type = "-";
-	    }
-            $("#thermocouple_type").html(thermocouple_type); // Define variable for web instance
-
-	    $("#pid_kp").html(pid_kp); // Define variable for web instance
+            $("#pid_kp").html(pid_kp); // Define variable for web instance
             $("#pid_ki").html(pid_ki); // Define variable for web instance
             $("#pid_kd").html(pid_kd); // Define variable for web instance
             $("#emerg_temp").html(emergency_shutoff_temp); // Define variable for web instance

@@ -398,9 +398,8 @@ def get_config():
         "kiln_must_catch_up": config.kiln_must_catch_up,
         "pid_control_window": config.pid_control_window,
         "emergency_shutoff_temp": config.emergency_shutoff_temp,
-        "thermocouple_type": config.thermocouple_type,
         "ignore_pid_control_window_until": config.ignore_pid_control_window_until})
-        #ADDED TO PORT IN MORE INFO FROM BACKEND
+        # ADDED TO PORT IN MORE INFO FROM BACKEND
 
 def main():
     ip = "0.0.0.0"

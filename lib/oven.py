@@ -14,17 +14,6 @@ import statistics
 
 log = logging.getLogger(__name__)
 
-
-# TESTING: Mark T wants to determine the (present == last run) curve start time so i can display this in the javascript GUI. Maybe Marko can figure this out.
-#import psutil
-#p = psutil.Process(os.getpid())
-#p.create_time()
-#time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(p.create_time()))
-#log.info("Oven curve started: %s" %(time.strftime))
-# END Mark T get start time the kiln-controller last started
-
-
-
 class DupFilter(object):
     def __init__(self):
         self.msgs = set()
@@ -828,6 +817,11 @@ class Profile():
 
         incl = float(next_point[1] - prev_point[1]) / float(next_point[0] - prev_point[0])
         temp = prev_point[1] + (time - prev_point[0]) * incl
+        #mark tilles correction for autorestart when config.temp units = f
+        if config.temp_scale.lower() == "f":
+           temp = (temp*9/5)+32
+        #end mark tilles
+
         return temp
 
 
