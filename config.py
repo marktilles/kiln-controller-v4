@@ -231,12 +231,11 @@ pid_control_window = 5 #degrees
 ignore_pid_control_window_until = 70 
 
 # thermocouple offset
-# thermocouple offset
 # If you put your thermocouple in ice water and it reads 36F, you can
 # set set this offset to -4 to compensate.  This probably means you have a
 # cheap thermocouple.  Invest in a better thermocouple.
 # Only full decimals
-thermocouple_offset = -14
+thermocouple_offset = -8
 
 # number of samples of temperature to take over each duty cycle.
 # The larger the number, the more load on the board. K type 
