@@ -725,10 +725,10 @@ $(document).ready(function()
                 // Display the other temp scale for information purposes 
                 if (temp_scale == "c") {
                    $("#altscaletemp").html((x.temperature*9/5+32).toFixed(0)); // Define variable for web instance
-                   $("#altscaleunit").html("f"); // Define variable for web instance
+                   $("#altscaleunit").html("°F"); // Define variable for web instance
 		} else {
                    $("#altscaletemp").html(((x.temperature-32)*5/9).toFixed(0)); // Define variable for web instance
-                   $("#altscaleunit").html("c"); // Define variable for web instance
+                   $("#altscaleunit").html("°C"); // Define variable for web instance
 		}
 
                 state = x.state;
