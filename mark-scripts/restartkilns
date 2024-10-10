@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+from signal import pause
+import warnings, os, sys
+
+
+#### Start service
+os.system("sudo systemctl stop kiln-controller.service")
+os.system ("sleep 2")
+os.system("ps aux | grep 'kiln-controller' | awk '{print $2"   "$12}'")
+
+#### Start service
+os.system("sudo systemctl start kiln-controller &")
+os.system ("sleep 2")
+os.system("ps aux | grep 'kiln-controller' | awk '{print $2"   "$12}'")
+

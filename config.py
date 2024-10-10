@@ -8,7 +8,7 @@ import busio
 #   General options
 
 # Give the kiln a name for the GUI
-kiln_name = "Porter Ranch"
+kiln_name = "AIM"
 
 # Password required to avoid accidental firing cancellations or curve modifications 
 # The password is also required to execute optional BACKEND-FUNCTIONs 1 and 2
@@ -37,8 +37,8 @@ listening_port = 8081
 # 1,1451 net avgift
 # 0,4364 kwh price
 # 1,5815 total
-kwh_rate        =  1.582  # cost per kilowatt hour per currency_type to calculate cost to run job
-kw_elements     = 10.000  # if the kiln elements are on, the wattage in kilowatts
+kwh_rate        = 0.266  # cost per kilowatt hour per currency_type to calculate cost to run job
+kw_elements     = 7.776  # if the kiln elements are on, the wattage in kilowatts
 currency_type   = "$"   # Currency Symbol to show when calculating cost to run job
 
 ########################################################################

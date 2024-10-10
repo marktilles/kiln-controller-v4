@@ -1,0 +1,46 @@
+#!/usr/bin/expect
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/kiln-controller.py kiln4/
+        set pass "markt"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/public/site-content.html kiln4/public/
+        set pass "markt"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/public/index.html kiln4/public/
+        set pass "markt"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/public/assets/js/picoreflow.js kiln4/public/assets/js/
+        set pass "markt"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/config.py kiln4/
+        set pass "markt"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/lib/oven.py kiln4/lib/
+        set pass "markt"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/ kiln4/mark-scripts
+        set pass "markt"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+        spawn scp synckiln4.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
+        set pass "markt"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+
+
+
+
+
