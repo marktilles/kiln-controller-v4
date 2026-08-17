@@ -400,6 +400,13 @@ class Oven(threading.Thread):
         log.info("Starting")
 
     def scheduled_run(self, start_datetime, profile, run_trigger, startat=0):
+        # Cancel any previously scheduled firing before replacing it.
+        if self.scheduled_run_timer and self.scheduled_run_timer.is_alive():
+            log.info("Cancelling previously scheduled run")
+            self.scheduled_run_timer.cancel()
+        self.scheduled_run_timer = None
+        self.start_datetime = None
+
         self.reset()
         seconds_until_start = (
             start_datetime - datetime.datetime.now()
@@ -421,11 +428,21 @@ class Oven(threading.Thread):
         )
 
     def _timeout(self, profile, run_trigger, startat):
+        # The scheduled timer has fired; it is no longer a pending schedule.
+        self.scheduled_run_timer = None
+        self.start_datetime = None
         self.run_profile(profile, startat)
         if run_trigger:
             run_trigger()
 
     def abort_run(self):
+        # A manual/emergency stop must also cancel any pending scheduled run.
+        if self.scheduled_run_timer and self.scheduled_run_timer.is_alive():
+            log.info("Cancelling scheduled run")
+            self.scheduled_run_timer.cancel()
+
+        self.scheduled_run_timer = None
+        self.start_datetime = None
         self.reset()
         self.save_automatic_restart_state()
 
@@ -522,8 +539,28 @@ class Oven(threading.Thread):
         return state
 
     def save_state(self):
-        with open(config.automatic_restart_state_file, 'w', encoding='utf-8') as f:
-            json.dump(self.get_state(), f, ensure_ascii=False, indent=4)
+        # Write the automatic-restart state atomically.  The old implementation
+        # opened the real JSON file with 'w', briefly leaving it empty.  The oven
+        # thread could then call json.load() during that window and die with
+        # JSONDecodeError.
+        state_file = config.automatic_restart_state_file
+        temp_file = state_file + ".tmp"
+
+        try:
+            with open(temp_file, 'w', encoding='utf-8') as f:
+                json.dump(self.get_state(), f, ensure_ascii=False, indent=4)
+                f.flush()
+                os.fsync(f.fileno())
+
+            os.replace(temp_file, state_file)
+
+        except Exception:
+            log.exception("Unable to save automatic restart state")
+            try:
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
+            except OSError:
+                pass
 
     def state_file_is_old(self):
         '''returns True is state files is older than 15 mins default
@@ -552,25 +589,51 @@ class Oven(threading.Thread):
             duplog.info("automatic restart not possible. state file does not exist or is too old.")
             return False
 
-        with open(config.automatic_restart_state_file) as infile:
-            d = json.load(infile)
-        if d["state"] != "RUNNING":
-            duplog.info("automatic restart not possible. state = %s" % (d["state"]))
+        try:
+            with open(config.automatic_restart_state_file, encoding='utf-8') as infile:
+                d = json.load(infile)
+        except (OSError, json.JSONDecodeError, ValueError, TypeError):
+            # Never allow a bad/empty restart file to kill the oven thread.
+            duplog.info("automatic restart not possible. state file is invalid or unreadable.")
+            return False
+
+        if d.get("state") != "RUNNING":
+            duplog.info("automatic restart not possible. state = %s" % (d.get("state")))
             return False
         return True
 
     def automatic_restart(self):
-        with open(config.automatic_restart_state_file) as infile: d = json.load(infile)
-        startat = d["runtime"]/60
-        filename = "%s.json" % (d["profile"])
-        profile_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'storage','profiles',filename))
+        try:
+            with open(config.automatic_restart_state_file, encoding='utf-8') as infile:
+                d = json.load(infile)
+        except (OSError, json.JSONDecodeError, ValueError, TypeError):
+            duplog.info("automatic restart aborted. state file is invalid or unreadable.")
+            return
 
-        log.info("automatically restarting profile = %s at minute = %d" % (profile_path,startat))
-        with open(profile_path) as infile:
-            profile_json = json.dumps(json.load(infile))
-        profile = Profile(profile_json)
-        self.run_profile(profile, startat=startat, allow_seek=False)  # We don't want a seek on an auto restart.
-        self.cost = d["cost"]
+        try:
+            startat = d["runtime"] / 60
+            profile_name = d["profile"]
+            saved_cost = d["cost"]
+        except (KeyError, TypeError):
+            duplog.info("automatic restart aborted. state file is missing required data.")
+            return
+
+        filename = "%s.json" % profile_name
+        profile_path = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), '..', 'storage', 'profiles', filename))
+
+        log.info("automatically restarting profile = %s at minute = %d" % (profile_path, startat))
+
+        try:
+            with open(profile_path, encoding='utf-8') as infile:
+                profile_json = json.dumps(json.load(infile))
+            profile = Profile(profile_json)
+        except (OSError, json.JSONDecodeError, ValueError, TypeError):
+            log.exception("automatic restart aborted. unable to load profile %s", profile_path)
+            return
+
+        self.run_profile(profile, startat=startat, allow_seek=False)
+        self.cost = saved_cost
         time.sleep(1)
         self.ovenwatcher.record(profile)
 

@@ -14,6 +14,11 @@
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/public/assets/css/picoreflow.css kiln4/public/assets/css/
+        set pass "markymark"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
         spawn scp pi@192.168.4.162:/home/pi/kiln-controller/public/assets/js/picoreflow.js kiln4/public/assets/js/
         set pass "markymark"
         expect {
