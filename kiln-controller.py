@@ -212,15 +212,17 @@ def handle_control():
                     oven.abort_run()
                 #time.sleep(1)
 
-                # CUSTOM MENU-ACCESSED FUNCTONS
+                # CUSTOM MENU-ACCESSED FUNCTONS- these backend scripts are simple password protected - see config.py
                 elif msgdict.get("cmd") == "BACKEND_FUNCTION_1":
-                    log.info("BACKEND_FUNCTION_1 command received")
-                    #sample function, these backend scripts are simple password protected - see config.py
+                    log.info("BACKEND_FUNCTION_1 shutdown command received")
                     os.system ("sudo shutdown -P +0 &"); # shutdown and power off
+                elif msgdict.get("cmd") == "BACKEND_FUNCTION_3":
+                    log.info("BACKEND_FUNCTION_3 reinit service command received")
+ #                  os.system("sudo sh -c 'sleep 3; /home/pi/kiln-controller/mark-scripts/startkilns' &")
+  #                 os.system("sudo  /home/pi/kiln-controller/mark-scripts/stopkilns")
+                    os.system("sudo systemctl restart kiln-controller.service &")
                 elif msgdict.get("cmd") == "BACKEND_FUNCTION_2":
-                    log.info("BACKEND_FUNCTION_2 command received")
-                    #these backend scripts are simple password protected, password and kiln names are in the config file config.py
-                    #os.system ("echo BACKEND_FUNCTION-2 function command was executed")
+                    log.info("BACKEND_FUNCTION_2 reboot command received")
                     os.system ("sudo reboot")
                 # END CUSTOM MENU-ACCESSED FUNCTONS
         except WebSocketError as e:

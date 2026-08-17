@@ -60,46 +60,35 @@ function getNowTime() {
 
 }
 
+// Added simple passcode / confirmation check routine
+function checkPasscode() {
 
-function checkPasscode () {
+    // No password configured: require explicit confirmation
+    if (typeof function_passcode === 'undefined' ||
+        function_passcode === null ||
+        String(function_passcode).trim() === "") {
 
-        // No function_passcode configured = no passcode required
-        if (function_passcode === undefined ||
-            function_passcode === null ||
-            String(function_passcode).trim() === "") {
-            console.log("No function passcode configured - allowing command");
-            return true;
-        }
+        return window.confirm("Are you sure?");
+    }
 
-        // Passcode configured - require it
-        let inputtxt = prompt("CAUTION! Enter passcode to process command:", "");
+    // Password is configured: require the password
+    let inputtxt = prompt("CAUTION! Enter passcode to process command:", "");
 
-        if (inputtxt !== null &&
-            inputtxt.toUpperCase().trim() === String(function_passcode).toUpperCase().trim()) {
-            console.log("Correct passcode entered");
-            return true;
-        }
-        else {
-            console.log("Incorrect passcode entered");
-            return false;
-        }
+    // Cancel pressed
+    if (inputtxt === null) {
+        return false;
+    }
+
+    if (inputtxt.toUpperCase().trim() == function_passcode.toUpperCase().trim()) {
+        console.log("Correct passcode entered");
+        return true;
+    }
+    else {
+        console.log("Incorrect passcode entered");
+	alert("Wrong passcode!");
+        return false;
+    }
 }
-
-/*
- * // Added simple passcode check routine
-function checkPasscode () {
-        // Check hard-coded passcode
-        let inputtxt = prompt("CAUTION! Enter passcode to process command:", "");
-        if ( ( (inputtxt.toUpperCase()).trim()) == ( ( function_passcode.toUpperCase() ).trim() ) ) {
-             console.log("Correct passcode entered " + function_passcode + " (" + inputtxt + ")")
-             return true;
-         }
-        else {
-             console.log("Incorrect passcode entered: " + inputtxt + " (" + function_passcode + ")")
-             return false;
-        }
-}
-*/
 
 
 // ADDED OPTON TO HAVE BACKEND FUNCTION
@@ -123,7 +112,7 @@ function BACKEND_FUNCTION_1() {
            }
         else
            {
-              alert('Wrong pascode!')
+              //alert('Wrong pascode!')
               return false;
            }
 }
@@ -152,11 +141,42 @@ function BACKEND_FUNCTION_2() {
            }
            else
            {
-              alert('Wrong pascode!')
+              //alert('Wrong pascode!')
               return false;
            }
 }
-// ADDED TO BE ABLE TO SWAP BETWEEN TWO DIFFERENT KILN INSTANCES§:w
+// ADDED TO BE ABLE TO SWAP BETWEEN TWO DIFFERENT KILN INSTANCES:
+//
+//
+// // ADDED TO BE ABLE TO SWAP BETWEEN TWO DIFFERENT KILN INSTANCES
+function BACKEND_FUNCTION_3() {
+           if (checkPasscode() == true) {
+	      var cmd =
+              {
+   	         "cmd": "BACKEND_FUNCTION_3",
+  	      }
+   	      $.bootstrapGrowl("<span class=\"glyphicon glyphicon-exclamation-sign\"></span> <b>Restaring kiln-controller service now! Refresh your GUI shortly...</b>", {
+                ele: 'body', // which element to append to
+                type: 'error', // (null, 'info', 'error', 'success')
+                offset: {from: 'top', amount: 700}, // 'top', or 'bottom'
+                align: 'center', // ('left', 'right', or 'center')
+                width: 385, // (integer, or 'auto')
+                delay: 0,
+                allow_dismiss: false,
+                stackup_spacing: 10 // spacing between consecutively stacked growls.
+              });
+
+  	      ws_control.send(JSON.stringify(cmd));
+           }
+           else
+           {
+              //alert('Wrong pascode!')
+              return false;
+           }
+}
+// ADDED TO BE ABLE TO RESTART KILN CONTROLLER SERVICE FROMM WITHIN THE GUI
+
+
 
 if(window.webkitRequestAnimationFrame) window.requestAnimationFrame = window.webkitRequestAnimationFrame;
 
