@@ -897,9 +897,9 @@ $(document).ready(function()
                 $('#heat_rate').html(heat_rate);
                 NowTime = getNowTime();
                 $('#NowTime').html(NowTime);
-                if (typeof x.pidstats !== 'undefined') {
-                    $('#heat').html('<div class="bar" style="height:'+x.pidstats.out*70+'%;"></div>')
-                    }
+                //if (typeof x.pidstats !== 'undefined') {
+                //    $('#heat').html('<div class="bar" style="height:'+x.pidstats.out*70+'%;"></div>')
+                //    }
                 if (x.cool > 0.5) { $('#cool').addClass("ds-led-cool-active"); } else { $('#cool').removeClass("ds-led-cool-active"); }
                 if (x.air > 0.5) { $('#air').addClass("ds-led-air-active"); } else { $('#air').removeClass("ds-led-air-active"); }
                 if (x.temperature > hazardTemp()) { $('#hazard').addClass("ds-led-hazard-active"); } else { $('#hazard').removeClass("ds-led-hazard-active"); }

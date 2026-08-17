@@ -1,4 +1,6 @@
 #!/usr/bin/expect
+cd /Users/markt/Desktop/Git
+
         spawn scp kiln4/kiln-controller.py pi@192.168.4.162:/home/pi/kiln-controller/kiln-controller.py
         set pass "markymark"
         expect {
