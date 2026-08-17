@@ -1,9 +1,0 @@
-#!/bin/sh
-        scp pi@192.168.4.163:/home/pi/kiln-controller/kiln-controller.py 		../
-        scp pi@192.168.4.163:/home/pi/kiln-controller/public/index.html 		../public/
-        scp pi@192.168.4.163:/home/pi/kiln-controller/public/assets/js/picoreflow.js 	../public/assets/js/
-        scp pi@192.168.4.163:/home/pi/kiln-controller/config.py 			../
-        scp pi@192.168.4.163:/home/pi/kiln-controller/lib/oven.py			../lib/
-        scp synckiln4 									pi@192.168.4.163:/home/pi/kiln-controller/mark-scripts/
-
-
