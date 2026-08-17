@@ -13,7 +13,7 @@ var time_scale_long = "Seconds";
 var temp_scale_display = "C";
 var kwh_rate = 0.26;
 var currency_type = "EUR";
-var function_passcode = "ABCDE";
+var function_passcode = "null";
 var kw_elements = 99999;
 
 var protocol = 'ws:';
@@ -61,8 +61,32 @@ function getNowTime() {
 }
 
 
+function checkPasscode () {
 
-// Added simple passcode check routine
+        // No function_passcode configured = no passcode required
+        if (function_passcode === undefined ||
+            function_passcode === null ||
+            String(function_passcode).trim() === "") {
+            console.log("No function passcode configured - allowing command");
+            return true;
+        }
+
+        // Passcode configured - require it
+        let inputtxt = prompt("CAUTION! Enter passcode to process command:", "");
+
+        if (inputtxt !== null &&
+            inputtxt.toUpperCase().trim() === String(function_passcode).toUpperCase().trim()) {
+            console.log("Correct passcode entered");
+            return true;
+        }
+        else {
+            console.log("Incorrect passcode entered");
+            return false;
+        }
+}
+
+/*
+ * // Added simple passcode check routine
 function checkPasscode () {
         // Check hard-coded passcode
         let inputtxt = prompt("CAUTION! Enter passcode to process command:", "");
@@ -75,6 +99,8 @@ function checkPasscode () {
              return false;
         }
 }
+*/
+
 
 // ADDED OPTON TO HAVE BACKEND FUNCTION
 function BACKEND_FUNCTION_1() {

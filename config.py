@@ -12,7 +12,8 @@ kiln_name = "AIM"
 
 # Password required to avoid accidental firing cancellations or curve modifications 
 # The password is also required to execute optional BACKEND-FUNCTIONs 1 and 2
-function_passcode = "unni"
+# Set to "" if dont want pclear text passcode confirmations to stop running or scheduled processes
+function_passcode = ""
 
 # Enable a blinking LED while service is running.
 # Requires modules: gpiozero, signal, warnings, os, sys
