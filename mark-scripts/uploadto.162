@@ -31,22 +31,7 @@ cd /Users/markt/Desktop/Git
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp synckiln4.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
-        set pass "markymark"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-        spawn scp synckiln4.163 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
-        set pass "markymark"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-        spawn scp restorekiln.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
-        set pass "markymark"
-        expect {
-        password: {send "$pass\r"; exp_continue}
-                  }
-        spawn scp restorekiln.163 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
+        spawn scp kiln4/mark-scripts/uploadto.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}

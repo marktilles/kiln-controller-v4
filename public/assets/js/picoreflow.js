@@ -60,6 +60,155 @@ function getNowTime() {
 
 }
 
+function checkPasscode()
+{
+    var passcode = String(
+        (typeof function_passcode === 'undefined' || function_passcode === null)
+        ? ""
+        : function_passcode
+    ).trim();
+
+    // PASSCODE DISABLED
+    if (passcode === "" || passcode.toLowerCase() === "null") {
+        return window.confirm("Are you sure?");
+    }
+
+    // PASSCODE ENABLED
+    var inputtxt = window.prompt(
+        "CAUTION! Enter passcode to process command:",
+        ""
+    );
+
+    // CANCEL - exit immediately
+    if (inputtxt === null || inputtxt === undefined) {
+        console.log("CANCEL PRESSED - NO ERROR");
+        return false;
+    }
+
+    // CORRECT PASSWORD
+    if (String(inputtxt).trim().toUpperCase() === passcode.toUpperCase()) {
+        console.log("CORRECT PASSCODE");
+        return true;
+    }
+
+    // WRONG PASSWORD ONLY
+    alert("Incorrect passcode!");
+    return false;
+}
+/*
+function checkPasscode()
+{
+    var passcode = (typeof function_passcode === 'undefined' ||
+                    function_passcode === null)
+                   ? ""
+                   : String(function_passcode).trim();
+
+    // Passcode disabled
+    if (passcode === "" ||
+        passcode.toLowerCase() === "null") {
+
+        return window.confirm("Are you sure?");
+    }
+
+    // Passcode enabled
+    var inputtxt = window.prompt(
+        "CAUTION! Enter passcode to process command:",
+        ""
+    );
+
+    // CANCEL
+    if (inputtxt === null) {
+        console.log("USER CANCELLED PASSCODE");
+        return "CANCELLED";
+    }
+
+    // Correct password
+    if (String(inputtxt).trim().toUpperCase() === passcode.toUpperCase()) {
+        console.log("CORRECT PASSCODE");
+        return true;
+    }
+
+    // Wrong password
+    console.log("WRONG PASSCODE");
+    alert("Incorrect passcode!");
+    return false;
+}
+*/
+/*function checkPasscode() {
+
+    // Convert the configured value to a string safely
+    var passcode = (typeof function_passcode === 'undefined' ||
+                    function_passcode === null)
+                    ? ""
+                    : String(function_passcode).trim();
+
+    // Passcode disabled
+    if (passcode === "" ||
+        passcode.toLowerCase() === "null" ||
+        passcode.toLowerCase() === "none" ||
+        passcode.toLowerCase() === "false" ||
+        passcode.toLowerCase() === "undefined") {
+
+        return window.confirm("Are you sure?");
+    }
+
+    // Passcode enabled
+    var inputtxt = window.prompt(
+        "CAUTION! Enter passcode to process command:",
+        ""
+    );
+
+    // CANCEL was pressed -- this is NOT a wrong password
+    if (inputtxt === null) {
+        console.log("Passcode entry cancelled");
+        return false;
+    }
+
+    // Correct password
+    if (String(inputtxt).trim().toUpperCase() === passcode.toUpperCase()) {
+        console.log("Correct passcode entered");
+        return true;
+    }
+
+    // Wrong password
+    console.log("Incorrect passcode entered");
+    alert("Incorrect passcode!");
+    return false;
+}
+/*
+function checkPasscode() {
+
+    // No password configured: require explicit confirmation
+    if (typeof function_passcode === 'undefined' ||
+        function_passcode === null ||
+        String(function_passcode).trim() === "" ||
+        String(function_passcode).trim().toLowerCase() === "null") {
+
+        return window.confirm("Are you sure?");
+    }
+
+    // Password is configured: require the password
+    let inputtxt = prompt("CAUTION! Enter passcode to process command:", "");
+
+    // Cancel pressed
+    if (inputtxt === null) {
+        return false;
+    }
+
+    if (inputtxt.toUpperCase().trim() == function_passcode.toUpperCase().trim()) {
+        console.log("Correct passcode entered");
+        return true;
+    }
+    else {
+        console.log("Incorrect passcode entered");
+        alert("Incorrect passcode!");
+        return false;
+    }
+}
+*/
+
+
+/*
 // Added simple passcode / confirmation check routine
 function checkPasscode() {
 
@@ -85,10 +234,11 @@ function checkPasscode() {
     }
     else {
         console.log("Incorrect passcode entered");
-	alert("Wrong passcode!");
+	alert("Incorrect passcode!");
         return false;
     }
 }
+*/
 
 
 // ADDED OPTON TO HAVE BACKEND FUNCTION
@@ -112,7 +262,6 @@ function BACKEND_FUNCTION_1() {
            }
         else
            {
-              //alert('Wrong pascode!')
               return false;
            }
 }
@@ -141,7 +290,6 @@ function BACKEND_FUNCTION_2() {
            }
            else
            {
-              //alert('Wrong pascode!')
               return false;
            }
 }
@@ -170,7 +318,6 @@ function BACKEND_FUNCTION_3() {
            }
            else
            {
-              //alert('Wrong pascode!')
               return false;
            }
 }
@@ -424,7 +571,35 @@ function runTaskSimulation()
 
 }
 
+function abortTask()
+{
+    if (!checkPasscode()) {
+        return false;
+    }
 
+    var cmd = {"cmd": "STOP"};
+    ws_control.send(JSON.stringify(cmd));
+    return true;
+}
+/*
+function abortTask()
+{
+    var result = checkPasscode();
+
+    if (result === "CANCELLED") {
+        return false;
+    }
+
+    if (result !== true) {
+        return false;
+    }
+
+    var cmd = {"cmd": "STOP"};
+    ws_control.send(JSON.stringify(cmd));
+    return true;
+}
+*/
+/*
 function abortTask()
 {
     if (checkPasscode() == true) {
@@ -433,10 +608,10 @@ function abortTask()
     }
     else
     {
-       alert('Wrong pascode!')
        return false;
     }
 }
+*/
 
 function enterNewMode()
 {
