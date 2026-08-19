@@ -44,12 +44,12 @@
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/ kiln4/mark-scripts
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/downloadfrom.162 kiln4/mark-scripts
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp synckiln4.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/uploadto.162 kiln4/mark-scripts
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}

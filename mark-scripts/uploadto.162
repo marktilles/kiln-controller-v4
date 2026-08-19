@@ -26,6 +26,11 @@ cd /Users/markt/Desktop/Git
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
+        spawn scp kiln4/public/assets/css/picoreflow.css pi@192.168.4.162:/home/pi/kiln-controller/public/assets/css/picoreflow.css
+        set pass "markymark"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
         spawn scp kiln4/public/assets/js/picoreflow.js pi@192.168.4.162:/home/pi/kiln-controller/public/assets/js/picoreflow.js
         set pass "markymark"
         expect {
@@ -42,6 +47,11 @@ cd /Users/markt/Desktop/Git
         password: {send "$pass\r"; exp_continue}
                   }
         spawn scp kiln4/mark-scripts/uploadto.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
+        set pass "markymark"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
+        spawn scp kiln4/mark-scripts/downloadfrom.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
