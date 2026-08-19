@@ -1,6 +1,11 @@
 #!/usr/bin/expect
 cd /Users/markt/Desktop/Git
 
+        spawn scp kiln4/autotune.sh pi@192.168.4.162:/home/pi/kiln-controller/autotune.sh
+        set pass "markymark"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
         spawn scp kiln4/kiln-tuner.py pi@192.168.4.162:/home/pi/kiln-controller/kiln-tuner.py
         set pass "markymark"
         expect {

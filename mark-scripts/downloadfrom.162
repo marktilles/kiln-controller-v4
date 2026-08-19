@@ -1,4 +1,9 @@
 #!/usr/bin/expect
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/autotune.sh kiln4/
+        set pass "markymark"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
         spawn scp pi@192.168.4.162:/home/pi/kiln-controller/kiln-controller.py kiln4/
         set pass "markymark"
         expect {
