@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import datetime
 import os
 import sys
 import csv
@@ -11,11 +12,11 @@ try:
         import config
         sys.dont_write_bytecode = False
 
-except ImportError:
-        print("Could not import config file.")
-        print("Copy config.py.EXAMPLE to config.py and adapt it for your setup.")
-        exit(1)
-
+except ImportError as e:
+    print("Could not import config file.")
+    print("Actual error:", e)
+    print("Copy config.py.EXAMPLE to config.py and adapt it for your setup.")
+    exit(1)
 
 def recordprofile(csvfile, targettemp):
 
@@ -32,9 +33,11 @@ def recordprofile(csvfile, targettemp):
     # construct the oven
     if config.simulate:
         oven = SimulatedOven()
-        oven.target = targettemp * 2 # insures max heating for simulation
+        oven.start_time = datetime.datetime.now()
+        oven.target = targettemp * 2
     else:
         oven = RealOven()
+
 
     # Main loop:
     #

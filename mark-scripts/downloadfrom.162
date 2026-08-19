@@ -4,6 +4,11 @@
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
+        spawn scp pi@192.168.4.162:/home/pi/kiln-controller/kiln-tuner.py kiln4/
+        set pass "markymark"
+        expect {
+        password: {send "$pass\r"; exp_continue}
+                  }
         spawn scp pi@192.168.4.162:/home/pi/kiln-controller/public/site-content.html kiln4/public/
         set pass "markymark"
         expect {
